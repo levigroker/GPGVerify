@@ -3,7 +3,7 @@ GPG Verify
 A manually activated Script to verify signed files with GPG (see GPG homepage
 http://www.gnupg.org/ )
 By Levi Brown <mailto:levigroker@gmail.com>
-Version 1.0.2 September 27th, 2017
+Version 1.0.3 September 3rd, 2019
 
 This script works in tandem with the 'gpg' command line binary (which should
 already be installed and functional) to provide a simple user interface to the
@@ -25,8 +25,9 @@ Release History:
 1.0   September 18th, 2006: Internal initial release.
 1.0.1 September 8th,  2011: Release to GitHub.
 1.0.2 September 27th, 2017: Minor compatibility fix for GPG 2.2.0.
+1.0.3 September 3rd,  2019: Extract keyserver to property (and update). Remove obsolete keyserver-options
 
-Copyright (c) 2006-2017 Levi Brown.
+Copyright (c) 2006-2019 Levi Brown.
 This work is licensed under the Creative Commons Attribution 4.0 International
 License. To view a copy of this license, visit
 https://creativecommons.org/licenses/by/4.0/
@@ -50,6 +51,7 @@ consequential damages, so some of the terms above may not be applicable to you.
 *)
 
 property _sig_file_extensions : {".asc.txt", ".txt", ".asc", ".sig"}
+property _keyserver : "pool.sks-keyservers.net"
 
 on run
 	tell application "Finder"
@@ -89,7 +91,7 @@ on run
 				set _targetFile to POSIX path of (_targetFile as alias)
 				set _sigFile to POSIX path of (_sigFile as alias)
 				try
-					set res to do shell script "/usr/local/bin/gpg --no-greeting --quiet --keyserver wwwkeys.pgp.net --keyserver-options auto-key-retrieve,include-subkeys,honor-http-proxy --verify-options show-photos --verify \"" & _sigFile & "\" \"" & _targetFile & "\" 2>&1"
+					set res to do shell script "/usr/local/bin/gpg --keyserver " & _keyserver & " --keyserver-options auto-key-retrieve,include-subkeys --verify-options show-photos --verify \"" & _sigFile & "\" \"" & _targetFile & "\" 2>&1"
 					my parseGPGRes(res)
 				on error errText number errNum
 					display alert "Error: GPG Signature Validation Failed" message errText as critical buttons {"OK"} default button "OK"
