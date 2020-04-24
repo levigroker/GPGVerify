@@ -4,7 +4,7 @@ GPG Verify
 A manually activated Script to verify signed files with GPG (see GPG homepage
 http://www.gnupg.org/ )
 By Levi Brown <mailto:levigroker@gmail.com>
-Version 1.0.3 September 3rd, 2019
+Version 1.0.4 April 24th, 2020
 
 ### Documentation
 
@@ -23,7 +23,7 @@ Menu please visit: http://www.apple.com/applescript/scriptmenu/
 
 #### Disclaimer and Licence
 
-* This script has been tested on Mac OS X 10.4.7 to 10.14.6 under US English and may
+* This script has been tested on Mac OS X 10.4.7 to 10.15.4 under US English and may
 contain i18n issues which are not accounted for.
 
 * This work is licensed under the [Creative Commons Attribution 4.0 International

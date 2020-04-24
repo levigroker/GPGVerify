@@ -3,7 +3,7 @@ GPG Verify
 A manually activated Script to verify signed files with GPG (see GPG homepage
 http://www.gnupg.org/ )
 By Levi Brown <mailto:levigroker@gmail.com>
-Version 1.0.3 September 3rd, 2019
+Version 1.0.4 April 24th, 2020
 
 This script works in tandem with the 'gpg' command line binary (which should
 already be installed and functional) to provide a simple user interface to the
@@ -16,18 +16,19 @@ on file name.  I suggest adding this script to the Finder Scripts Folder so it
 is available from the Finder as needed.  For more information about the Script
 Menu please visit: http://www.apple.com/applescript/scriptmenu/
 
-* This script has been tested on Mac OS X 10.4.7 to 10.12.6 under US English and may
+* This script has been tested on Mac OS X 10.4.7 to 10.15.4 under US English and may
 contain i18n issues which are not accounted for.
 
 Please feel free to contact me with improvements and feedback.
 
 Release History:
 1.0   September 18th, 2006: Internal initial release.
-1.0.1 September 8th,  2011: Release to GitHub.
+1.0.1 September 8th, 2011: Release to GitHub.
 1.0.2 September 27th, 2017: Minor compatibility fix for GPG 2.2.0.
-1.0.3 September 3rd,  2019: Extract keyserver to property (and update). Remove obsolete keyserver-options
+1.0.3 September 3rd, 2019: Extract keyserver to property (and update). Remove obsolete keyserver-options
+1.0.4 April 24th, 2020: Handle alias conversion error in Catalina.
 
-Copyright (c) 2006-2019 Levi Brown.
+Copyright (c) 2006-2020 Levi Brown.
 This work is licensed under the Creative Commons Attribution 4.0 International
 License. To view a copy of this license, visit
 https://creativecommons.org/licenses/by/4.0/
@@ -220,7 +221,7 @@ on isThere(strFilePath)
 	try
 		strFilePath as alias
 	on error errText number errNum
-		if errNum is -43 then
+		if (errNum is -43) or (errNum is -1700) then
 			return false
 		else
 			error number errNum
